@@ -23,4 +23,22 @@ router.post('/', async (req, res) => {
    res.send(result);
 })
 
+//getAllScores
+router.get('/', async (req,res) => {
+   const scores = await Score.find({})
+   res.send(scores)
+})
+
+//getScoresByWeek
+router.get('/week/:week', async (req,res) => {
+   const scores = await Score.find({Week:req.params.week})
+   res.send(scores)
+})
+
+//getScoresByUser
+router.get('/user/:user', async (req,res) => {
+   const scores = await Score.find({UserId:req.params.user})
+   res.send(scores)
+})
+
 module.exports = router;
