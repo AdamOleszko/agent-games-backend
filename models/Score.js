@@ -5,8 +5,6 @@ const Score = mongoose.model('Score', new mongoose.Schema({
     score: {
         type: Number,
         required: true,
-        minlength: 1,
-        maxlength: 255,
     },
     UserId: {
         type: String,
@@ -20,7 +18,7 @@ const Score = mongoose.model('Score', new mongoose.Schema({
 
 function validateScore(score) {
     const schema = {
-        score: Joi.number().min(1).max(255).required(),
+        score: Joi.number().required(),
         UserId: Joi.string().required(),
         Week: Joi.number().required(),
     };

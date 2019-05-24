@@ -14,8 +14,9 @@ router.post('/', async (req, res) => {
    if (error) return res.status (400).send(error.details[0].message);
 
    const score = new Score({
-       User: req.body.userId,
-       score: req.body.score
+      score: req.body.score,
+      UserId: req.body.UserId,
+      Week: req.body.Week,
    })
 
    const result = await score.save();
