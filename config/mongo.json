@@ -1,6 +1,6 @@
 {
     "development" : {
-        "database": "find-it",
+        "database": "AgentsGame",
         "host": "localhost"
     },
     "production":{
