@@ -3,9 +3,9 @@ const express = require('express');
 const router = express.Router();
 
 const {
-   Place,
-   validatePlace
-} = require('../models/Place');
+   Score,
+   validateScore
+} = require('../models/Score');
 
 
 //createScore
