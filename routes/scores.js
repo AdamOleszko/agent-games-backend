@@ -37,8 +37,13 @@ router.get('/', async (req,res) => {
 })
 
 //getScoresByweek
-router.get('/week/:week', async (req,res) => {
-   const scores = await Score.find({week:req.params.week})
+router.get('/week/', async (req,res) => {
+   const date1 = new Date('5/13/2019');
+   const date2 = new Date(Date.now());
+   const diffTime = Math.abs(date2.getTime() - date1.getTime());
+   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+   const acctualweek = Math.ceil(diffDays/7)
+   const scores = await Score.find({week:acctualweek})
    res.send(scores)
 })
 
