@@ -13,14 +13,29 @@ router.post('/', async (req, res) => {
    const { error } = validateScore(req.body);
    if (error) return res.status (400).send(error.details[0].message);
 
-   const score = new Score({
-      score: req.body.score,
-      UserId: req.body.UserId,
-      Week: req.body.Week,
-   })
+   const date1 = new Date('5/13/2019');
+   const date2 = new Date(Date.now());
+   const diffTime = Math.abs(date2.getTime() - date1.getTime());
+   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+   const acctualweek = Math.ceil(diffDays/7)
 
-   const result = await score.save();
-   res.send(result);
+   const check = await Score.find({userLogin:req.body.userLogin,week:acctualweek})
+   if(check.length>0){
+      const oldScore = check[0].score
+      const newScore = req.body.score
+      if(newScore>=oldScore){
+         const score = await Score.findOneAndUpdate({userLogin:req.body.userLogin},{score:newScore})
+         res.send(score)
+      }
+   } else {
+      const score = new Score({
+         score: req.body.score,
+         userLogin: req.body.userLogin,
+         week: req.body.week,
+      })
+      const result = await score.save();
+      res.send(result);
+   }
 })
 
 //getAllScores
@@ -29,15 +44,15 @@ router.get('/', async (req,res) => {
    res.send(scores)
 })
 
-//getScoresByWeek
+//getScoresByweek
 router.get('/week/:week', async (req,res) => {
-   const scores = await Score.find({Week:req.params.week})
+   const scores = await Score.find({week:req.params.week})
    res.send(scores)
 })
 
 //getScoresByUser
 router.get('/user/:user', async (req,res) => {
-   const scores = await Score.find({UserId:req.params.user})
+   const scores = await Score.find({userLogin:req.params.user})
    res.send(scores)
 })
 

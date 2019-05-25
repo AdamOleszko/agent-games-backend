@@ -6,11 +6,11 @@ const Score = mongoose.model('Score', new mongoose.Schema({
         type: Number,
         required: true,
     },
-    UserId: {
+    userLogin: {
         type: String,
         required: true,
     },
-    Week: {
+    week: {
         type: Number,
         required: true,
     }
@@ -19,8 +19,8 @@ const Score = mongoose.model('Score', new mongoose.Schema({
 function validateScore(score) {
     const schema = {
         score: Joi.number().required(),
-        UserId: Joi.string().required(),
-        Week: Joi.number().required(),
+        userLogin: Joi.string().required(),
+        week: Joi.number().required(),
     };
     return Joi.validate(score, schema);
 
