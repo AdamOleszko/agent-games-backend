@@ -1,18 +1,10 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
-
-const {
-   Score,
-   validateScore
-} = require('../models/Score');
-
+const {Score} = require('../models/Score');
 
 //createScore
 router.post('/', async (req, res) => {
-   const { error } = validateScore(req.body);
-   if (error) return res.status (400).send(error.details[0].message);
-
    const date1 = new Date('5/13/2019');
    const date2 = new Date(Date.now());
    const diffTime = Math.abs(date2.getTime() - date1.getTime());
@@ -31,7 +23,7 @@ router.post('/', async (req, res) => {
       const score = new Score({
          score: req.body.score,
          userLogin: req.body.userLogin,
-         week: req.body.week,
+         week: acctualweek,
       })
       const result = await score.save();
       res.send(result);
